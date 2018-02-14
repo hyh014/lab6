@@ -13,7 +13,23 @@ function initializePage() {
 
 	$('#colorBtn').click(randomizeColors);
 }
-
+/*
+$("#testjs").click(function(e)){
+	$.get("/project/random",addProject);
+}*/
+/*
+result = {'image':'http://foo.com/image.png',
+			'title':'Needfinding',
+			'date':'January 6'
+		}
+	
+function addProject(result) {
+  var projectHTML = '<a href="#" class="thumbnail">' +
+    '<img src="' + result['image'] + '" class="img">' +
+    '<p>' + result['title'] + '</p>' +
+    '<p><small>' + result['date'] +
+    '</small></p></a>'; 
+}*/
 /*
  * Make an AJAX call to retrieve project details and add it in
  */
@@ -27,4 +43,14 @@ function addProjectDetails(e) {
 	var idNumber = projectID.substr('project'.length);
 
 	console.log("User clicked on project " + idNumber);
+	
+	$.get("http://localhost:3000/project/"+idNumber,callBackFn);
+}
+function callBackFn(result){
+ var projectHTML = 
+    '<img src="' + result.image + '" class="img detailsImage">' +
+    '<p>' + result.title + '</p>' +
+    '<p><small>' + result.date +
+    '</small></p>'+result.summary; 
+    	$("#project"+result.id+" .details").html(projectHTML);
 }
